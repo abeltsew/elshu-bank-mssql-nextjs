@@ -280,7 +280,7 @@ const Home: NextPage = ({ records }: any) => {
       duration-150
       ease-in-out"
               >
-                Create Account
+                Send {`${amount} $`}
               </button>
             </form>
           </div>
@@ -357,7 +357,7 @@ const Home: NextPage = ({ records }: any) => {
       duration-150
       ease-in-out"
               >
-                Withdraw {`$ ${withdrawAmount}`}
+                Withdraw {`${withdrawAmount} $`}
               </button>
             </form>
           </div>
