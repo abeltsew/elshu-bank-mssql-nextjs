@@ -10,6 +10,10 @@ const Home: NextPage = ({ records }: any) => {
   const [lastName, setlastName] = useState<any>("");
   const [balance, setbalance] = useState<any>("");
 
+  const [amount, setAmount] = useState<any>("");
+  const [senderAccount, setSenderAccount] = useState<any>("");
+  const [receiverAccount, setreceiverAccount] = useState<any>("");
+
   const handleCreateAccount = async (e: any) => {
     e.preventDefault();
     const result = axios.post("http://localhost:3000/api/new", {
@@ -18,7 +22,21 @@ const Home: NextPage = ({ records }: any) => {
       balance,
     });
 
-    console.log({ result });
+    setfirstName("");
+    setSenderAccount("");
+    setreceiverAccount("");
+  };
+
+  const handleSendMoney = async (e: any) => {
+    e.preventDefault();
+    const result = await axios.post("http://localhost:3000/api/send", {
+      senderAccount,
+      receiverAccount,
+      amount,
+    });
+    setAmount("");
+    setSenderAccount("");
+    setreceiverAccount("");
   };
   return (
     <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 h-screen">
@@ -38,14 +56,16 @@ const Home: NextPage = ({ records }: any) => {
         // }}
       >
         <AccountsList records={records} />
-        <div className="block p-6 rounded-lg shadow-lg bg-white bg-opacity-30 max-w-md">
-          <h1 className="mb-5 text-center">Create New Account</h1>
-          <form>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="form-group mb-6">
-                <input
-                  type="text"
-                  className="form-control
+
+        <div className="flex flex-row space-y-10 lg:flex-col lg:space-y-10">
+          <div className="block p-6 rounded-lg shadow-lg bg-white bg-opacity-30 max-w-md">
+            <h1 className="mb-5 text-center">Create New Account</h1>
+            <form>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="form-group mb-6">
+                  <input
+                    type="text"
+                    className="form-control
           block
           w-full
           px-3
@@ -60,17 +80,17 @@ const Home: NextPage = ({ records }: any) => {
           ease-in-out
           m-0
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  id="exampleInput123"
-                  aria-describedby="emailHelp123"
-                  placeholder="First name"
-                  value={firstName}
-                  onChange={(e) => setfirstName(e.target.value)}
-                />
-              </div>
-              <div className="form-group mb-6">
-                <input
-                  type="text"
-                  className="form-control
+                    id="exampleInput123"
+                    aria-describedby="emailHelp123"
+                    placeholder="First name"
+                    value={firstName}
+                    onChange={(e) => setfirstName(e.target.value)}
+                  />
+                </div>
+                <div className="form-group mb-6">
+                  <input
+                    type="text"
+                    className="form-control
           block
           w-full
           px-3
@@ -85,18 +105,18 @@ const Home: NextPage = ({ records }: any) => {
           ease-in-out
           m-0
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  id="exampleInput124"
-                  aria-describedby="emailHelp124"
-                  placeholder="Last name"
-                  value={lastName}
-                  onChange={(e) => setlastName(e.target.value)}
-                />
+                    id="exampleInput124"
+                    aria-describedby="emailHelp124"
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={(e) => setlastName(e.target.value)}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="form-group mb-6">
-              <input
-                type="number"
-                className="form-control block
+              <div className="form-group mb-6">
+                <input
+                  type="number"
+                  className="form-control block
         w-full
         px-3
         py-1.5
@@ -110,17 +130,17 @@ const Home: NextPage = ({ records }: any) => {
         ease-in-out
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                id="exampleInput125"
-                placeholder="Balance"
-                value={balance}
-                onChange={(e) => setbalance(e.target.value)}
-              />
-            </div>
+                  id="exampleInput125"
+                  placeholder="Balance"
+                  value={balance}
+                  onChange={(e) => setbalance(e.target.value)}
+                />
+              </div>
 
-            <button
-              onClick={(e) => handleCreateAccount(e)}
-              type="submit"
-              className="
+              <button
+                onClick={(e) => handleCreateAccount(e)}
+                type="submit"
+                className="
       w-full
       px-6
       py-2.5
@@ -138,10 +158,117 @@ const Home: NextPage = ({ records }: any) => {
       transition
       duration-150
       ease-in-out"
-            >
-              Create Account
-            </button>
-          </form>
+              >
+                Create Account
+              </button>
+            </form>
+          </div>
+
+          <div className="block p-6 rounded-lg shadow-lg bg-white bg-opacity-30 max-w-md">
+            <h1 className="mb-5 text-center">Local Money Transfer</h1>
+            <form>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="form-group mb-6">
+                  <input
+                    type="number"
+                    className="form-control
+          block
+          w-full
+          px-3
+          py-1.5
+          text-base
+          font-normal
+          text-gray-700
+          bg-white bg-clip-padding
+          border border-solid border-gray-300
+          rounded
+          transition
+          ease-in-out
+          m-0
+          focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="exampleInput123"
+                    aria-describedby="emailHelp123"
+                    placeholder="Sender Account"
+                    value={senderAccount}
+                    onChange={(e) => setSenderAccount(e.target.value)}
+                  />
+                </div>
+                <div className="form-group mb-6">
+                  <input
+                    type="number"
+                    className="form-control
+          block
+          w-full
+          px-3
+          py-1.5
+          text-base
+          font-normal
+          text-gray-700
+          bg-white bg-clip-padding
+          border border-solid border-gray-300
+          rounded
+          transition
+          ease-in-out
+          m-0
+          focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="exampleInput124"
+                    aria-describedby="emailHelp124"
+                    placeholder="Receiver Account"
+                    value={receiverAccount}
+                    onChange={(e) => setreceiverAccount(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="form-group mb-6">
+                <input
+                  type="number"
+                  className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput125"
+                  placeholder="Transfer Amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
+
+              <button
+                onClick={(e) => handleSendMoney(e)}
+                type="submit"
+                className="
+      w-full
+      px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out"
+              >
+                Create Account
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
