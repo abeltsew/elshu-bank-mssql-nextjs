@@ -10,23 +10,31 @@ function AccountsList({ records }: any) {
   };
 
   const renderBody = () => {
-    return records.map((account: any) => {
+    return records.map((account: any, i: any) => {
       return (
-        <tr className="bg-gray-100 border-b" key={account.no}>
-          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-            {account.no}
+        <tr
+          key={account.accountId}
+          className={` border-b  ${
+            i % 2 !== 0 ? "bg-white bg-opacity-30" : "bg-opacity-0 "
+          }`}
+        >
+          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
+            {account.accountId}
           </td>
-          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
             {account.firstName}
           </td>
-          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
             {account.lastName}
           </td>
-          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
             {account.balance}
           </td>
-          <td>
-            <button onClick={() => handleDelete(account.accountId)}>
+          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+            <button
+              className="text-center "
+              onClick={() => handleDelete(account.accountId)}
+            >
               Delete
             </button>
           </td>
@@ -35,116 +43,46 @@ function AccountsList({ records }: any) {
     });
   };
   return (
-    <div className="flex flex-col w-full ">
+    <div className="flex flex-col w-full bg-white bg-opacity-30 rounded-lg shadow-lg">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 ">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-lg shadow-lg">
-            <table className="min-w-full ">
-              <thead className="bg-white bg-opacity-30 border-b ">
+            <table className="w-full ">
+              <thead className="bg-white bg-opacity-30 border-b w-full text-white">
                 <tr>
                   <th
                     scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center whitespace-nowrap "
                   >
                     Account #
                   </th>
                   <th
                     scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center whitespace-nowrap "
                   >
                     First Name
                   </th>
                   <th
                     scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center whitespace-nowrap "
                   >
                     Last Name
                   </th>
                   <th
                     scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
                   >
                     Balance
                   </th>
                   <th
                     scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
                   >
                     Action
                   </th>
                 </tr>
               </thead>
-              <tbody className=" border-b bg-opacity-0">
-                <tr className=" border-b bg-opacity-0">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    10232
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Abel
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Tsegaye
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    5343
-                  </td>
-                  <td>
-                    <button>Delete</button>
-                  </td>
-                </tr>
-                <tr className="bg-white border-b bg-opacity-30">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    10232
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Abel
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Tsegaye
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    5343
-                  </td>
-                  <td>
-                    <button>Delete</button>
-                  </td>
-                </tr>
-                <tr className="bg-white border-b bg-opacity-30">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    10232
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Abel
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Tsegaye
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    5343
-                  </td>
-                  <td>
-                    <button>Delete</button>
-                  </td>
-                </tr>
-                <tr className="bg-white border-b bg-opacity-30">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    10232
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Abel
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Tsegaye
-                  </td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    5343
-                  </td>
-                  <td>
-                    <button>Delete</button>
-                  </td>
-                </tr>
-                {renderBody()}
-              </tbody>
+              <tbody className=" border-b  ">{renderBody()}</tbody>
             </table>
           </div>
         </div>

@@ -100,5 +100,29 @@ GO
         Delete FROM [elshubank].[dbo].[accounts] WHERE account_no = 1000
         Delete FROM [elshubank].[dbo].[accounts] WHERE account_no = 1000
         COMMIT TRAN
-		*/
+		
 
+		EXEC fundTransfer @senderAccount= 1008, @recieverAccount=1011,@amount = 100
+*/
+create or Alter proc fundTransfer 
+@senderAccount bigint,
+@recieverAccount bigint,
+@amount float
+AS
+BEGIN
+	BEGIN TRAN
+	DECLARE @sufficient bit
+	
+	/*
+	Check if sender has sufficient account here
+	*/
+	Update [dbo].[accounts]
+	set balance = (select balance from [dbo].[accounts] where account_no = @senderAccount) - @amount
+	where account_no = @senderAccount
+
+	Update [dbo].[accounts]
+	set balance = (select balance from [dbo].[accounts] where account_no = @recieverAccount) + @amount
+	 where account_no = @recieverAccount
+
+	COMMIT TRAN;
+END

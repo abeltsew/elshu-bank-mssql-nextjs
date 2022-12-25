@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import axios from "axios";
 import React, { useState } from "react";
 import AccountsList from "../src/components/AccountsList";
+import NavBar from "../src/components/NavBar";
 
 const Home: NextPage = ({ records }: any) => {
   const [firstName, setfirstName] = useState<any>("");
@@ -26,7 +26,7 @@ const Home: NextPage = ({ records }: any) => {
         <title>Elshu Bank</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <NavBar />
       <div
         className="flex flex-col lg:flex-row justify-around w-full space-x-16 py-10 px-32"
         // style={{
@@ -149,10 +149,10 @@ const Home: NextPage = ({ records }: any) => {
 };
 
 export async function getStaticProps() {
-  // const records = await axios.get(`http://localhost:3000/api/accounts`);
+  const records = await axios.get(`http://localhost:3000/api/accounts`);
   return {
     props: {
-      records: [], // records: records.data.recordset,
+      records: records.data.recordset,
     },
   };
 }
