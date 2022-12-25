@@ -21,56 +21,138 @@ const Home: NextPage = ({ records }: any) => {
     console.log({ result });
   };
   return (
-    <div>
+    <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 h-screen">
       <Head>
         <title>Elshu Bank</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <AccountsList records={records} />
-      <div>
-        <h1>Create New Account</h1>
-        <form className="flex flex-col" style={{ display: "flex" }}>
-          <div>
-            <label>firstName</label>
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setfirstName(e.target.value)}
-            />
-          </div>
-          <br />
-          <div className="">
-            <label>lastName</label>
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setlastName(e.target.value)}
-            />
-          </div>
-          <br />
-          <div className="">
-            <label>balance</label>
-            <input
-              type="text"
-              value={balance}
-              onChange={(e) => setbalance(e.target.value)}
-            />
-          </div>
 
-          <button onClick={(e) => handleCreateAccount(e)}>
-            Add new Account
-          </button>
-        </form>
+      <div
+        className="flex flex-col lg:flex-row justify-around w-full space-x-16 py-10 px-32"
+        // style={{
+        //   display: "flex",
+        //   justifyContent: "space-around",
+        //   width: "100%",
+        //   gap: "50px",
+        //   padding: "10px 30px",
+        // }}
+      >
+        <AccountsList records={records} />
+        <div className="block p-6 rounded-lg shadow-lg bg-white bg-opacity-30 max-w-md">
+          <h1 className="mb-5 text-center">Create New Account</h1>
+          <form>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="form-group mb-6">
+                <input
+                  type="text"
+                  className="form-control
+          block
+          w-full
+          px-3
+          py-1.5
+          text-base
+          font-normal
+          text-gray-700
+          bg-white bg-clip-padding
+          border border-solid border-gray-300
+          rounded
+          transition
+          ease-in-out
+          m-0
+          focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput123"
+                  aria-describedby="emailHelp123"
+                  placeholder="First name"
+                  value={firstName}
+                  onChange={(e) => setfirstName(e.target.value)}
+                />
+              </div>
+              <div className="form-group mb-6">
+                <input
+                  type="text"
+                  className="form-control
+          block
+          w-full
+          px-3
+          py-1.5
+          text-base
+          font-normal
+          text-gray-700
+          bg-white bg-clip-padding
+          border border-solid border-gray-300
+          rounded
+          transition
+          ease-in-out
+          m-0
+          focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput124"
+                  aria-describedby="emailHelp124"
+                  placeholder="Last name"
+                  value={lastName}
+                  onChange={(e) => setlastName(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="form-group mb-6">
+              <input
+                type="number"
+                className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                id="exampleInput125"
+                placeholder="Balance"
+                value={balance}
+                onChange={(e) => setbalance(e.target.value)}
+              />
+            </div>
+
+            <button
+              onClick={(e) => handleCreateAccount(e)}
+              type="submit"
+              className="
+      w-full
+      px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out"
+            >
+              Create Account
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
 };
 
 export async function getStaticProps() {
-  const records = await axios.get(`http://localhost:3000/api/accounts`);
+  // const records = await axios.get(`http://localhost:3000/api/accounts`);
   return {
     props: {
-      records: records.data.recordset,
+      records: [], // records: records.data.recordset,
     },
   };
 }

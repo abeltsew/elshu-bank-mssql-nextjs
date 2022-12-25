@@ -9,8 +9,8 @@ function AccountsList({ records }: any) {
     console.log({ response });
   };
 
-  {
-    records.map((account: any) => {
+  const renderBody = () => {
+    return records.map((account: any) => {
       return (
         <tr className="bg-gray-100 border-b" key={account.no}>
           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -33,14 +33,14 @@ function AccountsList({ records }: any) {
         </tr>
       );
     });
-  }
+  };
   return (
-    <div className="flex flex-col">
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div className="flex flex-col w-full ">
+      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 ">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="overflow-hidden">
-            <table className="min-w-full">
-              <thead className="bg-white border-b">
+          <div className="overflow-hidden rounded-lg shadow-lg">
+            <table className="min-w-full ">
+              <thead className="bg-white bg-opacity-30 border-b ">
                 <tr>
                   <th
                     scope="col"
@@ -66,9 +66,85 @@ function AccountsList({ records }: any) {
                   >
                     Balance
                   </th>
+                  <th
+                    scope="col"
+                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                  >
+                    Action
+                  </th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody className=" border-b bg-opacity-0">
+                <tr className=" border-b bg-opacity-0">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    10232
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    Abel
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    Tsegaye
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    5343
+                  </td>
+                  <td>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+                <tr className="bg-white border-b bg-opacity-30">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    10232
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    Abel
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    Tsegaye
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    5343
+                  </td>
+                  <td>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+                <tr className="bg-white border-b bg-opacity-30">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    10232
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    Abel
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    Tsegaye
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    5343
+                  </td>
+                  <td>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+                <tr className="bg-white border-b bg-opacity-30">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    10232
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    Abel
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    Tsegaye
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    5343
+                  </td>
+                  <td>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+                {renderBody()}
+              </tbody>
             </table>
           </div>
         </div>
