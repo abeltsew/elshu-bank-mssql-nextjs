@@ -3,15 +3,9 @@ import Head from "next/head";
 import Image from "next/image";
 import axios from "axios";
 import React, { useState } from "react";
+import AccountsList from "../src/components/AccountsList";
 
 const Home: NextPage = ({ records }: any) => {
-  const handleDelete = async (accountId: any) => {
-    const response = await axios.delete(
-      `http://localhost:3000/api/${accountId}`
-    );
-    console.log({ response });
-  };
-
   const [firstName, setfirstName] = useState<any>("");
   const [lastName, setlastName] = useState<any>("");
   const [balance, setbalance] = useState<any>("");
@@ -32,18 +26,7 @@ const Home: NextPage = ({ records }: any) => {
         <title>Elshu Bank</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ol>
-        {records.map((account: any) => {
-          return (
-            <li key={account.no}>
-              {account.no} {account.firstName} {account.balance} -{" "}
-              <button onClick={() => handleDelete(account.accountId)}>
-                Delete
-              </button>
-            </li>
-          );
-        })}
-      </ol>
+      <AccountsList records={records} />
       <div>
         <h1>Create New Account</h1>
         <form className="flex flex-col" style={{ display: "flex" }}>

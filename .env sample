@@ -1,0 +1,4 @@
+DB_SERVER=db_server_ip_or_Name_here
+DB_USERNAME=db_userName_here
+DB_PASSWORD=db_password_here;
+DB_NAME=db_Name_Here
