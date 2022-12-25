@@ -14,6 +14,9 @@ const Home: NextPage = ({ records }: any) => {
   const [senderAccount, setSenderAccount] = useState<any>("");
   const [receiverAccount, setreceiverAccount] = useState<any>("");
 
+  const [withdrawAmount, setWithdrawAmount] = useState<any>("");
+  const [withdrawalAccount, setWithdrawalAccount] = useState<any>("");
+
   const handleCreateAccount = async (e: any) => {
     e.preventDefault();
     const result = axios.post("http://localhost:3000/api/new", {
@@ -21,7 +24,7 @@ const Home: NextPage = ({ records }: any) => {
       lastName,
       balance,
     });
-
+    window.location.reload();
     setfirstName("");
     setSenderAccount("");
     setreceiverAccount("");
@@ -34,12 +37,24 @@ const Home: NextPage = ({ records }: any) => {
       receiverAccount,
       amount,
     });
+
+    window.location.reload();
     setAmount("");
     setSenderAccount("");
     setreceiverAccount("");
   };
+
+  const handleWithdrawal = async (e: any) => {
+    e.preventDefault();
+    const result = await axios.post("http://localhost:3000/api/withdraw", {
+      withdrawalAccount,
+      withdrawAmount,
+    });
+
+    window.location.reload();
+  };
   return (
-    <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 h-screen">
+    <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 h-full">
       <Head>
         <title>Elshu Bank</title>
         <link rel="icon" href="/favicon.ico" />
@@ -266,6 +281,83 @@ const Home: NextPage = ({ records }: any) => {
       ease-in-out"
               >
                 Create Account
+              </button>
+            </form>
+          </div>
+
+          <div className="block p-6 rounded-lg shadow-lg bg-white bg-opacity-30 max-w-md">
+            <h1 className="mb-5 text-center">Withdraw from Account</h1>
+            <form>
+              <div className="form-group mb-6">
+                <input
+                  type="number"
+                  className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput125"
+                  placeholder="Account Number"
+                  value={withdrawalAccount}
+                  onChange={(e) => setWithdrawalAccount(e.target.value)}
+                />
+              </div>
+              <div className="form-group mb-6">
+                <input
+                  type="number"
+                  className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput125"
+                  placeholder="Withdrawal Amount"
+                  value={withdrawAmount}
+                  onChange={(e) => setWithdrawAmount(e.target.value)}
+                />
+              </div>
+
+              <button
+                onClick={(e) => handleWithdrawal(e)}
+                type="submit"
+                className="
+      w-full
+      px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out"
+              >
+                Withdraw {`$ ${withdrawAmount}`}
               </button>
             </form>
           </div>
