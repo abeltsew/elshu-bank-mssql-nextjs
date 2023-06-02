@@ -1,40 +1,50 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import AccountsList from '../src/components/AccountsList';
 import NavBar from '../src/components/NavBar';
 
-const Home: NextPage = ({ records }: any) => {
-  const [firstName, setfirstName] = useState<any>('');
-  const [lastName, setlastName] = useState<any>('');
-  const [balance, setbalance] = useState<any>('');
+interface AccountRecord {
+  accountId: number;
+  firstName: string;
+  lastName: string;
+  balance: number;
+}
 
-  const [amount, setAmount] = useState<any>('');
-  const [senderAccount, setSenderAccount] = useState<any>('');
-  const [receiverAccount, setreceiverAccount] = useState<any>('');
+interface HomeProps {
+  records: AccountRecord[];
+}
 
-  const [withdrawAmount, setWithdrawAmount] = useState<any>('');
-  const [withdrawalAccount, setWithdrawalAccount] = useState<any>('');
+const Home: NextPage<HomeProps> = ({ records }) => {
+  const [firstName, setfirstName] = useState<string>('');
+  const [lastName, setlastName] = useState<string>('');
+  const [balance, setbalance] = useState<string>('');
 
-  const [depositAmount, setDepositAmount] = useState<any>('');
-  const [depositAccount, setDepositAccount] = useState<any>('');
+  const [amount, setAmount] = useState<string>('');
+  const [senderAccount, setSenderAccount] = useState<string>('');
+  const [receiverAccount, setreceiverAccount] = useState<string>('');
 
-  const handleCreateAccount = async (e: any) => {
+  const [withdrawAmount, setWithdrawAmount] = useState<string>('');
+  const [withdrawalAccount, setWithdrawalAccount] = useState<string>('');
+
+  const [depositAmount, setDepositAmount] = useState<string>('');
+  const [depositAccount, setDepositAccount] = useState<string>('');
+
+  const handleCreateAccount = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = axios.post('http://localhost:3000/api/new', {
       firstName,
       lastName,
       balance,
     });
-
     setfirstName('');
     setSenderAccount('');
     setreceiverAccount('');
     window.location.reload();
   };
 
-  const handleSendMoney = async (e: any) => {
+  const handleSendMoney = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await axios.post('http://localhost:3000/api/send', {
       senderAccount,
@@ -48,7 +58,7 @@ const Home: NextPage = ({ records }: any) => {
     setreceiverAccount('');
   };
 
-  const handleWithdrawal = async (e: any) => {
+  const handleWithdrawal = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await axios.post('http://localhost:3000/api/withdraw', {
       withdrawalAccount,
@@ -58,7 +68,7 @@ const Home: NextPage = ({ records }: any) => {
     window.location.reload();
   };
 
-  const handleDeposite = async (e: any) => {
+  const handleDeposite = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await axios.post('http://localhost:3000/api/deposit', {
       depositAccount,

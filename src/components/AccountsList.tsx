@@ -1,8 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 
-function AccountsList({ records }: any) {
-  const handleDelete = async (accountId: any) => {
+interface AccountRecord {
+  accountId: number;
+  firstName: string;
+  lastName: string;
+  balance: Float32Array;
+}
+
+function AccountsList({ records }: { records: AccountRecord[] }) {
+  const handleDelete = async (accountId: number) => {
     const response = await axios.delete(
       `http://localhost:3000/api/${accountId}`
     );
@@ -10,13 +17,13 @@ function AccountsList({ records }: any) {
   };
 
   const renderBody = () => {
-    return records.map((account: any, i: any) => {
+    return records.map((account: AccountRecord, i: number) => {
       return (
         <tr
           key={account.accountId}
-          className={` border-b  ${
+          className={` border-b ${
             i % 2 !== 0 ? 'bg-white bg-opacity-30' : 'bg-opacity-0 '
-          }`}
+          } `}
         >
           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
             {account.accountId}
