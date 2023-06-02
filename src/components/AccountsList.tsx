@@ -1,12 +1,12 @@
-import React from "react";
-import axios from "axios";
+import React from 'react';
+import axios from 'axios';
 
 function AccountsList({ records }: any) {
   const handleDelete = async (accountId: any) => {
     const response = await axios.delete(
       `http://localhost:3000/api/${accountId}`
     );
-    console.log({ response });
+    window.location.reload();
   };
 
   const renderBody = () => {
@@ -15,7 +15,7 @@ function AccountsList({ records }: any) {
         <tr
           key={account.accountId}
           className={` border-b  ${
-            i % 2 !== 0 ? "bg-white bg-opacity-30" : "bg-opacity-0 "
+            i % 2 !== 0 ? 'bg-white bg-opacity-30' : 'bg-opacity-0 '
           }`}
         >
           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">

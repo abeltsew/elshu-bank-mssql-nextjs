@@ -1,65 +1,80 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import axios from "axios";
-import React, { useState } from "react";
-import AccountsList from "../src/components/AccountsList";
-import NavBar from "../src/components/NavBar";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import axios from 'axios';
+import React, { useState } from 'react';
+import AccountsList from '../src/components/AccountsList';
+import NavBar from '../src/components/NavBar';
 
 const Home: NextPage = ({ records }: any) => {
-  const [firstName, setfirstName] = useState<any>("");
-  const [lastName, setlastName] = useState<any>("");
-  const [balance, setbalance] = useState<any>("");
+  const [firstName, setfirstName] = useState<any>('');
+  const [lastName, setlastName] = useState<any>('');
+  const [balance, setbalance] = useState<any>('');
 
-  const [amount, setAmount] = useState<any>("");
-  const [senderAccount, setSenderAccount] = useState<any>("");
-  const [receiverAccount, setreceiverAccount] = useState<any>("");
+  const [amount, setAmount] = useState<any>('');
+  const [senderAccount, setSenderAccount] = useState<any>('');
+  const [receiverAccount, setreceiverAccount] = useState<any>('');
 
-  const [withdrawAmount, setWithdrawAmount] = useState<any>("");
-  const [withdrawalAccount, setWithdrawalAccount] = useState<any>("");
+  const [withdrawAmount, setWithdrawAmount] = useState<any>('');
+  const [withdrawalAccount, setWithdrawalAccount] = useState<any>('');
+
+  const [depositAmount, setDepositAmount] = useState<any>('');
+  const [depositAccount, setDepositAccount] = useState<any>('');
 
   const handleCreateAccount = async (e: any) => {
     e.preventDefault();
-    const result = axios.post("http://localhost:3000/api/new", {
+    const result = axios.post('http://localhost:3000/api/new', {
       firstName,
       lastName,
       balance,
     });
+
+    setfirstName('');
+    setSenderAccount('');
+    setreceiverAccount('');
     window.location.reload();
-    setfirstName("");
-    setSenderAccount("");
-    setreceiverAccount("");
   };
 
   const handleSendMoney = async (e: any) => {
     e.preventDefault();
-    const result = await axios.post("http://localhost:3000/api/send", {
+    const result = await axios.post('http://localhost:3000/api/send', {
       senderAccount,
       receiverAccount,
       amount,
     });
 
     window.location.reload();
-    setAmount("");
-    setSenderAccount("");
-    setreceiverAccount("");
+    setAmount('');
+    setSenderAccount('');
+    setreceiverAccount('');
   };
 
   const handleWithdrawal = async (e: any) => {
     e.preventDefault();
-    const result = await axios.post("http://localhost:3000/api/withdraw", {
+    const result = await axios.post('http://localhost:3000/api/withdraw', {
       withdrawalAccount,
       withdrawAmount,
     });
 
     window.location.reload();
   };
+
+  const handleDeposite = async (e: any) => {
+    e.preventDefault();
+    const result = await axios.post('http://localhost:3000/api/deposit', {
+      depositAccount,
+      depositAmount,
+    });
+
+    window.location.reload();
+  };
+
   return (
     <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 h-full">
       <Head>
         <title>Elshu Bank</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavBar />
+      {/* <NavBar /> */}
       <div
         className="flex flex-col lg:flex-row justify-around w-full space-x-16 py-10 px-32"
         // style={{
@@ -358,6 +373,83 @@ const Home: NextPage = ({ records }: any) => {
       ease-in-out"
               >
                 Withdraw {`${withdrawAmount} $`}
+              </button>
+            </form>
+          </div>
+
+          <div className="block p-6 rounded-lg shadow-lg bg-white bg-opacity-30 max-w-md">
+            <h1 className="mb-5 text-center">Deposit to Account</h1>
+            <form>
+              <div className="form-group mb-6">
+                <input
+                  type="number"
+                  className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput125"
+                  placeholder="Account Number"
+                  value={depositAccount}
+                  onChange={(e) => setDepositAccount(e.target.value)}
+                />
+              </div>
+              <div className="form-group mb-6">
+                <input
+                  type="number"
+                  className="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput125"
+                  placeholder="Deposite Amount"
+                  value={depositAmount}
+                  onChange={(e) => setDepositAmount(e.target.value)}
+                />
+              </div>
+
+              <button
+                onClick={(e) => handleDeposite(e)}
+                type="submit"
+                className="
+      w-full
+      px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out"
+              >
+                Deposite {`${depositAmount} $`}
               </button>
             </form>
           </div>
